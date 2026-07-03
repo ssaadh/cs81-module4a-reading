@@ -36,13 +36,22 @@ function totalReadingMinutes(log) {
   return total;
 }
 
-// Returns the book read most frequently
+/**
+ * Function figures out which book was logged during the highest number of separate days
+ * Input and data type is: `log (Array of objects)`
+ * The function returns a string of the title of the most frequently read book
+ */
 function mostReadBook(log) {
+
   const bookCounts = {};
+
   for (let entry of log) {
+    // Checking if the book title key does NOT exist yet in bookCounts
     if (!bookCounts[entry.book]) {
+      // If the book entry does not exist yet then initialize as the 1st time with 1
       bookCounts[entry.book] = 1;
     } else {
+      // OTOH if the book exists then increment by 1
       bookCounts[entry.book]++;
     }
   }
@@ -50,34 +59,19 @@ function mostReadBook(log) {
   let maxBook = null;
   let maxCount = 0;
   for (let book in bookCounts) {
+    // If a number higher than before comes up then assign that book as the most read one
     if (bookCounts[book] > maxCount) {
       maxBook = book;
+      // This gets the highest count of the current book
       maxCount = bookCounts[book];
     }
   }
   return maxBook;
 }
 
-// Prints a summary of minutes read per day
+
 function printDailySummary(log) {
   for (let entry of log) {
     console.log(`${entry.day}: ${entry.minutes} mins reading "${entry.book}"`);
   }
 }
-
-// Example usage
-addReadBook("Saturday", "Dune", 50);
-printDailySummary(readingLog);
-console.log("Total minutes read:", totalReadingMinutes(readingLog));
-console.log("Most read book:", mostReadBook(readingLog));
-
-
-// IMPROVEMENT
-// mostReadBook() should first do '.toLowerCase()' when counting books. That way some one won't do a typo like `GreAt expectations` and then have two books.
-// The code can do it like this:
-// `const bookTitle = entry.book.toLowerCase();`
-// Then replace entry.book with bookTitle.
-
-// STEP 5
-addReadBook("Saturday", "The Obstacle is the Way", 50);
-printDailySummary(readingLog);
