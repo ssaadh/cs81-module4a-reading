@@ -69,9 +69,30 @@ function mostReadBook(log) {
   return maxBook;
 }
 
-
+/**
+ * Function formats and outputs the reading log into the console.
+ * Input and data type is: `log (Array of objects)`
+ * The function does one log combining the entry day and minutes in a loop to the console
+ */
 function printDailySummary(log) {
   for (let entry of log) {
     console.log(`${entry.day}: ${entry.minutes} mins reading "${entry.book}"`);
   }
 }
+
+// Example usage
+addReadBook("Saturday", "Dune", 50);
+printDailySummary(readingLog);
+console.log("Total minutes read:", totalReadingMinutes(readingLog));
+console.log("Most read book:", mostReadBook(readingLog));
+
+
+// Step 4 --- IMPROVEMENT
+// mostReadBook() should first do '.toLowerCase()' when counting books. That way some one won't do a typo like `GreAt expectations` and then have two books.
+// The code can do it like this:
+// `const bookTitle = entry.book.toLowerCase();`
+// Then replace entry.book with bookTitle.
+
+// STEP 5
+addReadBook("Saturday", "The Obstacle is the Way", 50);
+printDailySummary(readingLog);
